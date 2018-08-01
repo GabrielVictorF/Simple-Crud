@@ -1,0 +1,27 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      Meu perfil
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <div class="card">
+  <img class="card-img-top" src="https://api.backendless.com/D1EADC75-4507-6B25-FFB7-77CF054A3100/906E8089-90DF-787A-FFA4-21D2B9008200/files/coming-soon.png">
+  <div class="card-body">
+    <h5 class="card-title" text-center>{{user.name | nulo}}</h5>
+    <p class="card-text">
+      <ion-item>
+        <b>Idade: </b>{{user.idade | nulo}}
+      </ion-item>
+      <ion-item>
+      <b>Email: </b>{{user.email}}
+      </ion-item>
+      <ion-item>
+        <b>Tipo de conta: </b>{{user.nivel | nivel}}
+      </ion-item>    
+    </p>
+  </div>    
+</div>
+</ion-content>

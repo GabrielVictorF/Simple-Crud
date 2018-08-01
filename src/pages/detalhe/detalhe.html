@@ -1,0 +1,54 @@
+<ion-header>
+  <ion-navbar>
+    <ion-buttons start>
+      <button ion-button icon-only (click)="edita()" color="secondary">
+         <ion-icon name="create"></ion-icon>
+      </button>
+      <button ion-button icon-only (click)="deletar()" color="danger">
+      <ion-icon name="trash"></ion-icon>
+    </button>
+    </ion-buttons>
+    <ion-title>
+      Detalhe
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <div *ngIf="item.___class.includes('favoritos')"> <!-- FAVORITOS -->
+    <ion-item ><b>Nome:</b> {{item.nome}}</ion-item>
+    <ion-item ><b>Quantidade: </b>{{item.quantidade}}</ion-item>
+    <ion-item><b>Proprietário: </b>{{item.ownerId | proprietario}}</ion-item>
+  </div>
+  
+  <div *ngIf="item.___class.includes('Users')"> <!-- USERS -->
+    <ion-item ><b>Nome:</b> {{item.name}}</ion-item>
+    <ion-item><b>Email:</b> {{item.email}}</ion-item>
+    <ion-item><b>Último login:</b> {{item.lastLogin | data}}</ion-item>
+    <ion-item><b>Nível:</b> {{item.nivel}}</ion-item>
+    <ion-item><b>Tipo de conta:</b> {{item.socialAccount}}</ion-item>
+    <ion-item><b>Status:</b> {{item.userStatus}}</ion-item>
+    <ion-item><b>Idade:</b> {{ item.idade }}</ion-item>
+    
+  </div>
+  <ion-item *ngIf="nivel == 2"><b>Object ID: </b>{{item.objectId}}</ion-item>
+  <ion-item><b>Modificado:</b> {{item.updated | data}}</ion-item>
+  <ion-item><b>Created: </b>{{item.created  | data}}</ion-item>
+ 
+  
+
+  <ion-fab right bottom>
+    <button ion-fab color="primary"><ion-icon name="arrow-dropleft"></ion-icon></button>
+    <ion-fab-list side="left">
+      <button ion-fab (click)="adicionar()" color="dark">
+        <ion-icon name="add" ></ion-icon>
+      </button>
+      <button ion-fab (click)="perfil()" color="primary">
+        <ion-icon name="contact"></ion-icon>
+      </button>
+      <button ion-fab (click)="usuarios()" *ngIf="nivel == 2" color="secondary">
+        <ion-icon name="contacts"></ion-icon>
+      </button>
+    </ion-fab-list>
+  </ion-fab>
+</ion-content>

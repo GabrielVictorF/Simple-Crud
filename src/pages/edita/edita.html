@@ -1,0 +1,43 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Editar</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding *ngIf="item.___class.includes('favoritos')"> 
+  <ion-item>
+		<ion-label stacked>Nome</ion-label>
+		<ion-input type="text" [(ngModel)]="item.nome"></ion-input>
+	</ion-item>
+	<ion-item>
+		<ion-label stacked>Quantidade</ion-label>
+		<ion-input type="text" [(ngModel)]="item.quantidade"></ion-input>
+	</ion-item>
+
+  <button ion-button full (click)="editar()">
+    Atualizar item
+  </button>
+</ion-content>
+
+<ion-content padding *ngIf="item.___class.includes('Users')"> 
+  <ion-item>
+		<ion-label stacked>Nome</ion-label>
+		<ion-input type="text" [(ngModel)]="item.name"></ion-input>
+	</ion-item>
+  <ion-item>
+		<ion-label stacked>Email</ion-label>
+		<ion-input type="email" [(ngModel)]="item.email"></ion-input>
+	</ion-item>
+  <ion-item>
+		<ion-label stacked>Idade</ion-label>
+		<ion-input type="number" [(ngModel)]="item.idade"></ion-input>
+	</ion-item>
+  <ion-item>
+		<ion-label stacked>Nível</ion-label>
+		<ion-input type="number" [(ngModel)]="item.nivel"></ion-input>
+	</ion-item>
+  <button ion-button full (click)="editaUser()">
+    Atualizar usuário
+  </button>
+</ion-content>
+

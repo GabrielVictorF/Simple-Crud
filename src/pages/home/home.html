@@ -1,0 +1,49 @@
+<ion-header>
+  <ion-navbar>
+    <ion-buttons start>
+      <button ion-button icon-only (click)="logout()" color="danger">
+        <ion-icon name="exit"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title>
+      <span *ngIf="nivel == 1">Meus itens</span>
+      <span *ngIf="nivel == 2">Todos os itens (ADM MODE)</span>
+      <span *ngIf="nivel == 3">Todos os itens (OWNER MODE)</span>
+      </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+ <ion-refresher (ionRefresh)="getFavoritos($event)">
+    <ion-refresher-content
+      pullingIcon="arrow-dropdown"
+      pullingText="Puxe para atualizar"
+      refreshingSpinner="circles"
+      refreshingText="Obtendo itens...">
+    </ion-refresher-content>
+  </ion-refresher>
+  
+  <ion-list>
+    <ion-item *ngFor="let x of data" (click)="detalhe(x)">
+      <ion-icon name="lock" *ngIf="x.ownerId != null && nivel > 1" item-start></ion-icon>
+      <ion-icon name="body" *ngIf="x.ownerId == null && nivel > 1" item-start></ion-icon>
+      {{x.nome}} 
+      <ion-note item-end>{{x.quantidade}}</ion-note>
+      </ion-item>
+  </ion-list>
+
+  <ion-fab right bottom>
+    <button ion-fab color="primary"><ion-icon name="arrow-dropleft"></ion-icon></button>
+    <ion-fab-list side="left">
+      <button ion-fab (click)="adicionar()" color="dark">
+        <ion-icon name="add" ></ion-icon>
+      </button>
+      <button ion-fab (click)="perfil()" color="primary">
+        <ion-icon name="contact"></ion-icon>
+      </button>
+      <button ion-fab (click)="usuarios()" *ngIf="nivel > 2" color="secondary">
+        <ion-icon name="contacts"></ion-icon>
+      </button>
+    </ion-fab-list>
+  </ion-fab>
+</ion-content>
