@@ -3,7 +3,7 @@ export class Usuario {
   public lastLogin: number;
   public userStatus: string;
 	public	created: number;
-	public	name: string;
+	public	nome: string;
 	public ownerId: string;
 	public socialAccount: string;
 	public	updated: number;

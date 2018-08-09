@@ -8,6 +8,8 @@ import { AdicionarPage } from '../adicionar/adicionar';
 import { LoginPage } from '../login/login';
 import { PerfilPage } from '../perfil/perfil';
 import { UsuariosPage } from '../usuarios/usuarios';
+import { MessagePage } from '../message/message';
+import { EmpresasPage } from '../empresas/empresas';
 
 //Providers
 import { ApiProvider } from '../../providers/api/api';
@@ -25,16 +27,16 @@ export class HomePage {
   constructor(public navCtrl: NavController, public api: ApiProvider, 
   public loadingCtrl: LoadingController, public functions: FunctionsProvider,
   public alertCtrl: AlertController) {
-    this.getFavoritos();
+    this.getProdutos();
     this.nivel = localStorage.nivel;
   }
 
-  getFavoritos(refresher?) {
+  getProdutos(refresher?) {
     const load = this.loadingCtrl.create({
       content: 'Obtendo favoritos...'
     });
     load.present();
-    this.api.getFavoritos().subscribe(res => {
+    this.api.getProdutos().subscribe(res => {
       if (refresher)
           refresher.complete();
       load.dismiss();
@@ -58,9 +60,7 @@ export class HomePage {
                 load.present();
                 this.api.logout().subscribe(res => {
                   load.dismiss();
-                  localStorage.removeItem("userId");
-                  localStorage.removeItem("nivel");
-                  localStorage.removeItem("userToken");
+                  this.functions.deletePropriedadesUser();
                   this.navCtrl.setRoot(LoginPage);
                 });
               });
@@ -77,11 +77,19 @@ export class HomePage {
   }
 
   adicionar() {
-    this.navCtrl.push(AdicionarPage, {tipo: 'favoritos'});
+    this.navCtrl.push(AdicionarPage, {tipo: 'produto'});
   }
 
   perfil() {
     this.navCtrl.push(PerfilPage);
+  }
+
+  usuarios() {
+    this.navCtrl.push(UsuariosPage);
+  }
+
+  message() {
+    this.navCtrl.push(MessagePage);
   }
 
   logout() {
@@ -97,9 +105,7 @@ export class HomePage {
           load.present();
           this.api.logout().subscribe(res => {
             load.dismiss();
-            localStorage.removeItem("userId");
-            localStorage.removeItem("nivel");
-            localStorage.removeItem("userToken");
+            this.functions.deletePropriedadesUser();
             this.navCtrl.setRoot(LoginPage);
           },
           Error => {
@@ -114,7 +120,15 @@ export class HomePage {
     confirm.present();
   }
 
-  usuarios() {
-    this.navCtrl.push(UsuariosPage);
+  getItems(ev: any) {
+    let val = ev.target.value;
+   	this.api.getPesquisa(val).subscribe(res => {
+   		this.data = res
+    });
+   	console.log(this.data);
   }
- }
+
+  empresasPage() {
+    this.navCtrl.push(EmpresasPage);
+  }
+}

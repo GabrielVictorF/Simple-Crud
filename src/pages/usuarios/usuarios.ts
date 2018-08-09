@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, AlertController, LoadingController } from 'ionic-angular';
 
 import { ApiProvider } from '../../providers/api/api';
 import { FunctionsProvider } from '../../providers/functions/functions';
@@ -7,6 +7,9 @@ import { FunctionsProvider } from '../../providers/functions/functions';
 import { DetalhePage } from '../detalhe/detalhe';
 
 import { AdicionarPage } from '../adicionar/adicionar';
+import { PerfilPage } from '../perfil/perfil';
+import { MessagePage } from '../message/message';
+import { LoginPage } from '../login/login';
 
 @Component({
   selector: 'page-usuarios',
@@ -15,7 +18,8 @@ import { AdicionarPage } from '../adicionar/adicionar';
 
 export class UsuariosPage {
   private data: any = [];
-  constructor (public navCrtl: NavController, public api: ApiProvider) {
+  constructor (public navCrtl: NavController, public api: ApiProvider, public alertCtrl: AlertController,
+  public loadingCtrl: LoadingController, public functions: FunctionsProvider) {
     this.getUsuarios();
   }
 
@@ -35,4 +39,45 @@ export class UsuariosPage {
   addUser() {
     this.navCrtl.push(AdicionarPage, {tipo: 'User'});
   }
+
+  adicionar() {
+    this.navCrtl.push(AdicionarPage, {tipo: 'produto'});
+  }
+
+   perfil() {
+    this.navCrtl.push(PerfilPage);
+  }
+
+  message() {
+    this.navCrtl.push(MessagePage);
+  }
+
+  logout() {
+    const confirm = this.alertCtrl.create({
+      title: 'Opa',
+      message: 'Tem certeza que deseja sair?',
+      buttons: [{
+        text: 'Sim',
+        handler: () => {
+          const load = this.loadingCtrl.create({
+          content: 'Saindo...'
+        });
+          load.present();
+          this.api.logout().subscribe(res => {
+            load.dismiss();
+            this.functions.deletePropriedadesUser();
+            this.navCrtl.setRoot(LoginPage);
+          },
+          Error => {
+            console.log(Error);
+          });
+        }
+      },
+      {
+        text: 'Não'
+      }]
+    });
+    confirm.present();
+  }
+
 }

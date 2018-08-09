@@ -9,18 +9,24 @@ import { FunctionsProvider } from '../../providers/functions/functions';
 })
 
 export class ResetSenhaPage {
-  private user = {
-    email: '',
-    password: ''
+  public user = {
+    email: ''
   }
   constructor(public navCtrl: NavController, public api: ApiProvider, public functions: FunctionsProvider) {
 
   }
 
   resetSenha() {
-    this.api.resetSenha(this.user.email).subscribe(res => {
-      this.functions.mostraToast('Um email com sua nova senha foi enviado!');
-      this.navCtrl.pop();
+    this.api.resetSenhaStep1(this.user.email).subscribe(res => {
+      const id = res;
+      console.log(res.objectId);
+      this.api.resetSenhaStep2(res.objectId).subscribe(res => {
+         this.functions.mostraToast('Um email com sua nova senha foi enviado!');
+        this.navCtrl.pop();
+      },
+      Error => {
+        console.log(Error);
+      });
     },
     Error => {
       this.functions.mostraToast('Erro');

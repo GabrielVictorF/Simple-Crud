@@ -28,17 +28,13 @@ export class CadastroPage {
       this.functions.mostraToast('As senhas não condizem!');
     else {
       this.api.cadastra(this.user).subscribe(res => {
-        this.functions.mostraAlert('Cadastro efetuado com sucesso!', 'Agora é só ir na sua caixa de e-mail e confirmar a sua conta');
+        this.functions.mostraAlert('Cadastro efetuado com sucesso!', 'Basta logar agora :D');
         this.navCtrl.pop();
       },
       Error => {
         console.log(Error);
-        if (Error.error.code == 3033) 
-          this.functions.mostraAlert('Erro ao criar conta!', 'O e-email inserido já está cadastrado!');
-        else if (Error.error.code = 3040)
-          this.functions.mostraToast('Insira um e-email válido');
-        else 
-          this.functions.mostraToast('Erro ao criar conta!');
+        const message = this.functions.filtraErro(Error.error.code);
+        this.functions.mostraAlert('Erro ao criar conta!', message);
       });
     }
   }

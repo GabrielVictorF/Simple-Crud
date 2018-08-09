@@ -15,28 +15,61 @@
 </ion-header>
 
 <ion-content>
-  <div *ngIf="item.___class.includes('favoritos')"> <!-- FAVORITOS -->
+  <div *ngIf="item.___class.includes('produto')"> <!-- FAVORITOS -->
+    <div class="text-center">
+      <img src="https://develop.backendless.com/FAA68423-49CB-CE65-FF5B-CB0FC0C7B600/console/fdleezxgcunaupxglanthtmxooxkqxsiphja/files/view/user/produto/No_image_available.svg" *ngIf="item.imagem.includes('produto-img')">
+      <img src="{{item.imagem}}" style="width: 50%;" *ngIf="!item.imagem.includes('produto-img')">
+    </div>
     <ion-item ><b>Nome:</b> {{item.nome}}</ion-item>
     <ion-item ><b>Quantidade: </b>{{item.quantidade}}</ion-item>
-    <ion-item><b>Proprietário: </b>{{item.ownerId | proprietario}}</ion-item>
+    <ion-item><b>Proprietário: </b>{{nome}}</ion-item>
+    <ion-item data-toggle="collapse" href="#sinopse" role="button" aria-expanded="false" aria-controls="collapseExample">
+      <b>Localização:</b> {{item_empresa.nome}} 
+      <ion-icon item-end name="arrow-down"></ion-icon>
+    </ion-item>
+    <div class="collapse" id="sinopse">
+  	  <ion-item><p><b>Endereço:</b>  {{item_empresa.endereco_tipo}} {{item_empresa.endereco}}, {{item_empresa.endereco_numero}}</p></ion-item>
+      <ion-item><p><b>CEP:</b>  {{item_empresa.cep}}</ion-item>
+    </div>	
+    <ion-item><b>Preço: </b>{{item.preco}} R$</ion-item>
   </div>
   
   <div *ngIf="item.___class.includes('Users')"> <!-- USERS -->
-    <ion-item ><b>Nome:</b> {{item.name}}</ion-item>
+    <ion-item ><b>Nome:</b> {{item.nome}}</ion-item>
     <ion-item><b>Email:</b> {{item.email}}</ion-item>
     <ion-item><b>Último login:</b> {{item.lastLogin | data}}</ion-item>
     <ion-item><b>Nível:</b> {{item.nivel}}</ion-item>
     <ion-item><b>Tipo de conta:</b> {{item.socialAccount}}</ion-item>
     <ion-item><b>Status:</b> {{item.userStatus}}</ion-item>
     <ion-item><b>Idade:</b> {{ item.idade }}</ion-item>
+  </div>
     
+  <div *ngIf="item.___class.includes('feedback')">
+    <ion-item><b>Mensagem:</b> {{item.message}}</ion-item>
+    <ion-item><b>Enviado:</b>  {{item.created | data}}</ion-item>
+    <ion-item><b>De: </b>{{nome}}</ion-item>
+  </div>
+
+  <div *ngIf="item.___class.includes('empresa')">
+    <ion-item><b>Nome da Empresa:</b> {{item.nome}}</ion-item>
+    <ion-item><b>Endereço:</b>  {{item.endereco_tipo}} {{item.endereco}}, {{item.endereco_numero}}</ion-item>
+    <ion-item><b>CEP:</b>  {{item.cep}}</ion-item>
   </div>
   <ion-item *ngIf="nivel == 2"><b>Object ID: </b>{{item.objectId}}</ion-item>
   <ion-item><b>Modificado:</b> {{item.updated | data}}</ion-item>
-  <ion-item><b>Created: </b>{{item.created  | data}}</ion-item>
- 
-  
+  <ion-item *ngIf="!item.___class.includes('feedback')"><b>Created: </b>{{item.created  | data}}</ion-item> 
 
+  <div *ngIf="item.___class.includes('produto')">
+    <button ion-button round outline default icon-end (click)="diminuir()" color="danger" class="rounded mx-auto d-block">
+      Diminuir quantidade
+      <ion-icon name="remove"></ion-icon>
+    </button>
+
+    <button ion-button round outline default icon-end (click)="aumentar()" color="primary" class="rounded mx-auto d-block">
+      Aumentar quantidade
+      <ion-icon name="add"></ion-icon>
+    </button>
+  </div>
   <ion-fab right bottom>
     <button ion-fab color="primary"><ion-icon name="arrow-dropleft"></ion-icon></button>
     <ion-fab-list side="left">

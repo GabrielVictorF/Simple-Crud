@@ -27,7 +27,8 @@ export class AdicionarPage {
 
   adicionar() {
     this.api.adicionarItem(this.item).subscribe(res => {
-      this.functions.mostraToast(this.item + ' adicionado com sucesso!'),
+      this.functions.mostraToast(this.item.nome + ' adicionado com sucesso!');
+      this.navCtrl.pop();
       console.log(res)
     },
     Error => {
@@ -47,12 +48,8 @@ export class AdicionarPage {
       },
       Error => {
         console.log(Error);
-        if (Error.error.code == 3033) 
-          this.functions.mostraAlert('Erro ao criar conta!', 'O e-email inserido já está cadastrado!');
-        else if (Error.error.code = 3040)
-          this.functions.mostraToast('Insira um e-email válido');
-        else 
-          this.functions.mostraToast('Erro ao criar conta!');
+        const message = Error.error.code;
+        this.functions.mostraAlert('Erro ao criar conta!', message);
       });
     }
   }

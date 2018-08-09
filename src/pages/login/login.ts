@@ -24,20 +24,13 @@ export class LoginPage {
       this.functions.mostraToast('Email / senha não podem estar vazios!');
     } else {
       this.api.login(this.user.email, this.user.password).subscribe(res => {
-        localStorage.setItem("nivel", res.nivel); //1 = comum; 2 = ADM
-        console.log(localStorage.nivel);
-        localStorage.setItem("userToken", res["user-token"]); //Token para reqs posteriores
-        localStorage.setItem("userId", res.objectId); //Id do usuário
+        this.functions.setPropriedadesUser(res);
         this.navCtrl.setRoot(HomePage);
       },
       Error => {
         console.log(Error);
-        if (Error.error.code == 3000) 
-          this.functions.mostraAlert('Ixi', 'Esta conta foi desabilitada');
-        else if (Error.error.code == 3003) 
-          this.functions.mostraAlert('Ops', 'Email / senha incorretos!');
-        else if (Error.error.code == 3087)
-          this.functions.mostraAlert('Calma aí XD', 'Você primeiro precisa confirmar o e-mail cadastrado!');
+        const message: string = this.functions.filtraErro(Error.error.code);
+        this.functions.mostraAlert('Erro', message);
       });
   }}
 

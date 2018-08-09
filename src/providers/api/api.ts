@@ -1,6 +1,5 @@
 import { HttpClient, HttpHeaders,  } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Headers, RequestOptions } from '@angular/common/http';
 import { Item } from '../../models/item';
 import { Usuario } from '../../models/usuario';
 
@@ -13,20 +12,45 @@ export class ApiProvider {
   public sessao: any;
 
   constructor(public http: HttpClient) {
-    this.APP_ID = 'D1EADC75-4507-6B25-FFB7-77CF054A3100';
-    this.API_KEY = '906E8089-90DF-787A-FFA4-21D2B9008200';
+    this.APP_ID = 'FAA68423-49CB-CE65-FF5B-CB0FC0C7B600';
+    this.API_KEY = '796DC057-3812-85C8-FFC2-BC2B3A238800';
     this.URL = 'https://api.backendless.com';
     this.REST_API = this.URL + '/' + this.APP_ID  + '/' + this.API_KEY;
   }
 
-  getFavoritos() {
-    const url: string = this.REST_API + '/data/favoritos?pageSize=25';
+  getProdutos() {
+    const url: string = this.REST_API + '/data/produto?pageSize=100';
     const httpOptions = ({
       headers: new HttpHeaders({
         'user-token': localStorage.userToken
       })
     });
     return this.http.get<Item>(url, httpOptions);
+  }
+
+  getPesquisa(termo) {
+    const where = "?where=nome%20LIKE%20'%25" + termo + "%25'";
+    const url = this.REST_API + '/data/produto' + where;
+    return this.http.get(url);
+  }
+
+  getMessages() {
+    const url: string = this.REST_API + '/data/feedback';
+    return this.http.get(url);
+  }
+
+  public enviaMensagem(message: string) {
+    const url = this.REST_API + '/data/feedback';
+    const httpOptions = ({
+      headers: new HttpHeaders({
+        'Content-Type' : 'application/json',
+        'user-token': localStorage.userToken
+      })
+    });
+  let body = {
+    message: message,
+  }
+    return this.http.post(url, body, httpOptions);
   }
 
   public login(email: string, password: string): any {
@@ -45,7 +69,7 @@ export class ApiProvider {
 	}
 
   public adicionarItem(item) {
-    const url = this.REST_API + '/data/favoritos';
+    const url = this.REST_API + '/data/produto';
     const httpOptions = ({
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
@@ -54,14 +78,14 @@ export class ApiProvider {
     });
     let body = {
     	nome: item.nome,
-      quantidade: item.quantidade
+      quantidade: parseInt(item.quantidade)
     }
   	return this.http.post<Item>(url,
   		body, httpOptions);
 	}
 
   public editaItem(item: Item) {
-    var url = this.REST_API + '/data/favoritos/' + item.objectId;
+    var url = this.REST_API + '/data/produto/' + item.objectId;
     const httpOptions = ({
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
@@ -70,7 +94,8 @@ export class ApiProvider {
     });
     let body = {
       nome: item.nome,
-      quantidade: parseInt(item.quantidade)
+      quantidade: parseInt(item.quantidade),
+      preco: item.preco
     };
     return this.http.put<Item>(url, body, httpOptions);
   }
@@ -84,41 +109,44 @@ export class ApiProvider {
     const url = this.REST_API + '/users/register';
    const httpOptions = ({
       headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        'user-token': localStorage.userToken
+        'Content-Type': 'application/json'
       })
     });
   let body = {
     email: user.email,
     password: user.password,
-    name: user.nome,
-    idade: user.idade
+    nome: user.nome,
+    idade: parseInt(user.idade)
   }
 
   return this.http.post<Usuario>(url, body, httpOptions);
   }
 
-  // public resetSenha(email): any {
-  //   const where = "?where=email%3D'" + email + "'";
-  //   const urlBuscaUser = this.REST_API + '/data/users' + where;
-  //   console.log(urlBuscaUser);
-  //   const urlResetSenha = this.REST_API + '/users/restorepassword/';
+  public resetSenhaStep1(user): any {
+    var encoded = encodeURIComponent(user);
+    const where = "?where=email%3D'" + encoded + "'";
+    console.log(where);
+    const urlBuscaUser = this.REST_API + '/data/Users' + where;
+    console.log(urlBuscaUser);
+    const urlResetSenha = this.REST_API + '/users/restorepassword/';
 
-  //   this.http.get(urlBuscaUser).subscribe(res => {
-  //     const id = res.objectId;
-  //     return this.http.get(urlResetSenha + id);
-  //   });  
-  // }
+    return this.http.get(urlBuscaUser);
+  }
 
-  public infoUser(userId?) {
+  public resetSenhaStep2(userId): any {
+    console.log(userId);
+    return this.http.get(userId);  
+  }
+  public infoUser(userId?): any {
     let url: string;
+    let user: string;
     if (userId) {
-      url = this.REST_API + '/users/' + userId;
+      url = this.REST_API + '/data/Users/' + userId;
     } else {
       url = this.REST_API + '/data/Users';
     }
     
-    return this.http.get(url);
+    return this.http.get<Usuario>(url);
   }
 
   public editaUser(user: Usuario) {
@@ -132,7 +160,7 @@ export class ApiProvider {
     });
     let body = {
       email: user.email,
-      nome: user.name,
+      nome: user.nome,
       idade: parseInt(user.idade),
       nivel: parseInt(user.nivel)
     }
@@ -153,5 +181,28 @@ export class ApiProvider {
   public validaToken() {
     const url = this.REST_API + '/users/isvalidusertoken/' + localStorage.userToken;
     return this.http.get(url);
+  }
+
+  atualizaQuantidade(quantidade, objectId) {
+      const url = this.REST_API + '/data/produto/' + objectId;
+      const httpOptions = ({
+        headers: new HttpHeaders({
+          'Content-Type': 'application/json',
+          'user-token': localStorage.userToken
+        })
+      });
+      let body = {
+        quantidade: parseInt(quantidade)
+      }
+      return this.http.put(url, body, httpOptions);
+  }
+
+  public getEmpresaRelation(id?) {
+    let url: string;
+    if (id)
+      url = this.REST_API + '/data/empresa/' + id;
+    else 
+      url = this.REST_API + '/data/empresa';
+    return this.http.get(url); 
   }
 }

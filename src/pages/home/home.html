@@ -1,20 +1,16 @@
 <ion-header>
-  <ion-navbar>
+  <ion-toolbar>
+    <ion-searchbar (ionInput)="getItems($event)" placeholder="Pesquisar..."></ion-searchbar>
     <ion-buttons start>
       <button ion-button icon-only (click)="logout()" color="danger">
         <ion-icon name="exit"></ion-icon>
       </button>
     </ion-buttons>
-    <ion-title>
-      <span *ngIf="nivel == 1">Meus itens</span>
-      <span *ngIf="nivel == 2">Todos os itens (ADM MODE)</span>
-      <span *ngIf="nivel == 3">Todos os itens (OWNER MODE)</span>
-      </ion-title>
-  </ion-navbar>
+  </ion-toolbar>
 </ion-header>
 
 <ion-content padding>
- <ion-refresher (ionRefresh)="getFavoritos($event)">
+  <ion-refresher (ionRefresh)="getProdutos($event)">
     <ion-refresher-content
       pullingIcon="arrow-dropdown"
       pullingText="Puxe para atualizar"
@@ -25,8 +21,10 @@
   
   <ion-list>
     <ion-item *ngFor="let x of data" (click)="detalhe(x)">
-      <ion-icon name="lock" *ngIf="x.ownerId != null && nivel > 1" item-start></ion-icon>
-      <ion-icon name="body" *ngIf="x.ownerId == null && nivel > 1" item-start></ion-icon>
+      <ion-avatar item-start>
+        <img  *ngIf="!x.imagem.includes('produto-img')" src="{{x.imagem}}">
+        <img  *ngIf="x.imagem.includes('produto-img')" src="https://develop.backendless.com/FAA68423-49CB-CE65-FF5B-CB0FC0C7B600/console/fdleezxgcunaupxglanthtmxooxkqxsiphja/files/view/produto-img.png">
+      </ion-avatar>
       {{x.nome}} 
       <ion-note item-end>{{x.quantidade}}</ion-note>
       </ion-item>
@@ -43,6 +41,12 @@
       </button>
       <button ion-fab (click)="usuarios()" *ngIf="nivel > 2" color="secondary">
         <ion-icon name="contacts"></ion-icon>
+      </button>
+      <button ion-fab (click)="message()" color="secondary"> 
+        <ion-icon name="mail"></ion-icon>
+      </button>
+       <button ion-fab (click)="empresasPage()" color="danger"> 
+        <ion-icon name="home"></ion-icon>
       </button>
     </ion-fab-list>
   </ion-fab>

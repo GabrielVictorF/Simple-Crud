@@ -3,13 +3,14 @@
     <ion-title>
       Adicionar <span *ngIf="tipo.includes('favoritos')">Item</span>
       <span *ngIf="tipo.includes('User')">Usuário</span>
+      <span *ngIf="tipo.includes('empresa')"></span>
     </ion-title>
   </ion-navbar>
 </ion-header>
 
-<ion-content padding *ngIf="tipo.includes('favoritos')">
+<ion-content padding *ngIf="tipo.includes('produto')">
    <ion-item>
-		<ion-label stacked>Nome</ion-label>
+		<ion-label stacked>Produto</ion-label>
 		<ion-input type="text"	placeholder="Nome..." [(ngModel)]="item.nome"></ion-input>
 	</ion-item>
 	<ion-item>
@@ -41,4 +42,25 @@
 	<ion-item>
 		<button ion-button full color="primary" (click)="cadastrar()">Adicionar usuário</button>
 	</ion-item>	
+  <ion-fab right bottom>
+    <button ion-fab color="primary"><ion-icon name="arrow-dropleft"></ion-icon></button>
+    <ion-fab-list side="left">
+      <button ion-fab (click)="adicionar()" color="dark">
+        <ion-icon name="add" ></ion-icon>
+      </button>
+      <button ion-fab (click)="perfil()" color="primary">
+        <ion-icon name="contact"></ion-icon>
+      </button>
+      <button ion-fab (click)="usuarios()" *ngIf="nivel == 2" color="secondary">
+        <ion-icon name="contacts"></ion-icon>
+      </button>
+    </ion-fab-list>
+  </ion-fab>
+</ion-content>
+
+<ion-content padding *ngIf="tipo.includes('empresa')">
+  <ion-item>
+		<ion-label stacked>Nome da empresa</ion-label>
+		<ion-input type="text"	placeholder="Nome..." [(ngModel)]="user.nome"></ion-input>
+	</ion-item>
 </ion-content>

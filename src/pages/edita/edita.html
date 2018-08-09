@@ -4,7 +4,7 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content padding *ngIf="item.___class.includes('favoritos')"> 
+<ion-content padding *ngIf="item.___class.includes('produto')"> 
   <ion-item>
 		<ion-label stacked>Nome</ion-label>
 		<ion-input type="text" [(ngModel)]="item.nome"></ion-input>
@@ -13,6 +13,11 @@
 		<ion-label stacked>Quantidade</ion-label>
 		<ion-input type="text" [(ngModel)]="item.quantidade"></ion-input>
 	</ion-item>
+  <ion-item>
+		<ion-label stacked>Preço</ion-label>
+		<ion-input type="text" [(ngModel)]="item.preco"></ion-input>
+	</ion-item>
+
 
   <button ion-button full (click)="editar()">
     Atualizar item
@@ -22,7 +27,7 @@
 <ion-content padding *ngIf="item.___class.includes('Users')"> 
   <ion-item>
 		<ion-label stacked>Nome</ion-label>
-		<ion-input type="text" [(ngModel)]="item.name"></ion-input>
+		<ion-input type="text" [(ngModel)]="item.nome"></ion-input>
 	</ion-item>
   <ion-item>
 		<ion-label stacked>Email</ion-label>
@@ -33,9 +38,13 @@
 		<ion-input type="number" [(ngModel)]="item.idade"></ion-input>
 	</ion-item>
   <ion-item>
-		<ion-label stacked>Nível</ion-label>
-		<ion-input type="number" [(ngModel)]="item.nivel"></ion-input>
-	</ion-item>
+  <ion-label stacked>Nível</ion-label>
+  <ion-select [(ngModel)]="item.nivel">
+    <ion-option value="1">Comum</ion-option>
+    <ion-option value="2">Administrador</ion-option>
+    <ion-option value="3">Owner</ion-option>
+  </ion-select>
+</ion-item>
   <button ion-button full (click)="editaUser()">
     Atualizar usuário
   </button>

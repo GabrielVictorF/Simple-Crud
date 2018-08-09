@@ -16,13 +16,14 @@ import { CadastroPage } from '../pages/cadastro/cadastro';
 import { ResetSenhaPage } from '../pages/reset-senha/reset-senha';
 import { PerfilPage } from '../pages/perfil/perfil';
 import { UsuariosPage } from '../pages/usuarios/usuarios';
+import { MessagePage } from '../pages/message/message';
+import { EmpresasPage } from '../pages/empresas/empresas';
 
 //Providers
 import { ApiProvider } from '../providers/api/api';
 import { FunctionsProvider } from '../providers/functions/functions';
 
 //Pipes
-import { ProprietarioPipe } from '../pipes/proprietario/proprietario';
 import { NuloPipe } from '../pipes/nulo/nulo';
 import { DataPipe } from '../pipes/data/data';
 import { NivelPipe } from '../pipes/nivel/nivel';
@@ -40,7 +41,8 @@ import { NivelPipe } from '../pipes/nivel/nivel';
     ResetSenhaPage,
     PerfilPage,
     UsuariosPage,
-    ProprietarioPipe,
+    MessagePage,
+    EmpresasPage,
     NuloPipe,
     DataPipe,
     NivelPipe
@@ -62,7 +64,9 @@ import { NivelPipe } from '../pipes/nivel/nivel';
     CadastroPage,
     ResetSenhaPage,
     PerfilPage,
-    UsuariosPage
+    UsuariosPage,
+    MessagePage,
+    EmpresasPage
   ],
   providers: [
     {provide: ErrorHandler, useClass: IonicErrorHandler},
