@@ -4,7 +4,8 @@
 
 This is a starter template for [Ionic](http://ionicframework.com/docs/) projects.
 
-# Versão web - POWERED BY STACKBLITZ (NOTE: Versão não otimizada para WEB, de preferência usar no Ionic CLI)
+# Versão web - POWERED BY STACKBLITZ 
+# (NOTE: Versão não otimizada para WEB, de preferência usar no Ionic CLI)
 https://simple-crud.stackblitz.io/
 
 ## How to use this template with the Ionic CLI:
