@@ -1,7 +1,9 @@
 import { HttpClient, HttpHeaders,  } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+
 import { Item } from '../../models/item';
 import { Usuario } from '../../models/usuario';
+import { Empresa } from '../../models/empresa';
 
 @Injectable()
 export class ApiProvider {
@@ -78,7 +80,9 @@ export class ApiProvider {
     });
     let body = {
     	nome: item.nome,
-      quantidade: parseInt(item.quantidade)
+      quantidade: parseInt(item.quantidade),
+      preco: parseFloat(item.preco),
+      
     }
   	return this.http.post<Item>(url,
   		body, httpOptions);
@@ -203,6 +207,6 @@ export class ApiProvider {
       url = this.REST_API + '/data/empresa/' + id;
     else 
       url = this.REST_API + '/data/empresa';
-    return this.http.get(url); 
+    return this.http.get<Empresa>(url); 
   }
 }

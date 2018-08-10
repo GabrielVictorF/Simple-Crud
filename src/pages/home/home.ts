@@ -1,6 +1,6 @@
 //Components
 import { Component } from '@angular/core';
-import { NavController, LoadingController, AlertController } from 'ionic-angular';
+import { NavController, LoadingController, AlertController, NavParams } from 'ionic-angular';
 
 //Pages
 import { DetalhePage } from '../detalhe/detalhe';
@@ -25,8 +25,8 @@ export class HomePage {
   private nivel: number;
 
   constructor(public navCtrl: NavController, public api: ApiProvider, 
-  public loadingCtrl: LoadingController, public functions: FunctionsProvider,
-  public alertCtrl: AlertController) {
+              public loadingCtrl: LoadingController, public functions: FunctionsProvider,
+              public alertCtrl: AlertController, public navParams: NavParams) {
     this.getProdutos();
     this.nivel = localStorage.nivel;
   }
@@ -70,6 +70,11 @@ export class HomePage {
         alert.present(); 
       }
     });
+  }
+
+  page() {
+    //this.offset += 10;
+    this.navCtrl.push(HomePage, {offset: 10});
   }
 
   detalhe(x) {

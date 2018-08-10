@@ -7,12 +7,14 @@ import { FunctionsProvider } from '../../providers/functions/functions';
 import { DetalhePage } from '../detalhe/detalhe';
 import { AdicionarPage } from '../adicionar/adicionar';
 
+import { Empresa } from '../../models/empresa';
+
 @Component({
   templateUrl: 'empresas.html',
 })
 
 export class EmpresasPage {
-  private data;
+  private data: Empresa;
   constructor(public api: ApiProvider, public navCtrl: NavController) {
     this.getEmpresas();
   }

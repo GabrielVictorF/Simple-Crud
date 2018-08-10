@@ -12,13 +12,18 @@
 </ion-header>
 
 <ion-content *ngIf="nivel == 1">
-  <ion-item>
-    <ion-label stacked>Envie uma mensagem <ion-icon name="mail"></ion-icon> </ion-label>
-    <ion-input type="text" placeholder="Mensagem..." [(ngModel)]="message"></ion-input>
-  </ion-item>
-  <ion-item>  
-    <button ion-button full color="primary" (click)="enviaMensagem()">Enviar</button>
-  </ion-item>
+  <div class="card border-light mb-3">
+    <div class="card-header text-center">Nos envie um feedback :D</div>
+    <div class="card-body text-primary">
+      <ion-item>
+        <ion-label stacked>Escreva aqui sua mensagem <ion-icon name="mail"></ion-icon></ion-label>
+        <ion-input type="text" placeholder="Mensagem..." [(ngModel)]="message"></ion-input>
+      </ion-item>
+      <ion-item>  
+        <button ion-button full color="primary" (click)="enviaMensagem()">Enviar</button>
+      </ion-item>
+    </div>
+  </div>
 </ion-content>
 
 <ion-content *ngIf="nivel > 1">

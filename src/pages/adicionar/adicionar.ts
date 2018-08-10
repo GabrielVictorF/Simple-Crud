@@ -10,7 +10,8 @@ import { FunctionsProvider } from '../../providers/functions/functions';
 export class AdicionarPage {
   public item = {
     nome: '',
-    quantidade: ''
+    quantidade: '',
+    preco: ''
   }
 
   private user = {

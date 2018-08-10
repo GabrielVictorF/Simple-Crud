@@ -10,22 +10,24 @@ import { LoginPage } from '../login/login';
 import { PerfilPage } from '../perfil/perfil';
 
 import { Item } from '../../models/item';
+import { Empresa } from '../../models/empresa';
 @Component({
   selector: 'page-detalhe',
   templateUrl: 'detalhe.html'
 })
 export class DetalhePage {
   private item; 
-  private item_empresa = [];
-  private nivel;
-  private nome;
+  private item_empresa: Empresa = new Empresa;
+  private nivel: number; //1 - Comum, 2 - Adm, 3 - Owner
+  private nome: string; //No lugar do PIPE
+  private arrow_icon: string; //Arrow-down || Arrow-up
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public api: ApiProvider,
   public functions: FunctionsProvider, public alertCtrl: AlertController ) {
-
+    this.arrow_icon = "arrow-down";
     this.item = this.navParams.get('item');
     this.nivel = localStorage.nivel;
-    if (this.item.localizacao_empresa != null) {
+    if (this.item.localizacao_empresa != 'n/a') {
       this.api.getEmpresaRelation(this.item.localizacao_empresa).subscribe(res => {
         this.item_empresa = res;
       });
@@ -45,16 +47,34 @@ export class DetalhePage {
     this.navCtrl.push(EditaPage, {'item': this.item});
   }
 
+  private mudaIcon() {
+    if (this.arrow_icon.includes('arrow-down'))
+      this.arrow_icon = "arrow-up";
+    else
+      this.arrow_icon = "arrow-down";
+  }
+
   deletar() {
-    let tipo: string;
-    if (this.item.___class.includes('Users')) {
-      tipo = "usuário";
-    } else {
-      tipo = "item";
+    let tipo = {
+      pronome: 'esse',
+      nome: ''
+    };
+    switch (this.item.___class) {
+      case 'Users': 
+        tipo.nome = "usuario";
+        break;
+      case 'produto':
+        tipo.nome = "item";
+        break;
+      case 'feedback':
+        tipo.nome = "mensagem";
+        tipo.pronome = "essa";
+        break;
     }
+    
     const confirm = this.alertCtrl.create({
-      title: 'Um momento...',
-      message: 'Tem certeza que quer excluir esse ' + tipo + '?',
+      title: '<div class="card text-white bg-danger mb-3"><div class="card-header">Um momento...</div></div>',
+      message: '<div class="alert alert-dark" role="alert">Tem certeza que quer excluir ' + tipo.pronome + ' ' + tipo.nome + '?</div>',
       buttons: [{
         text: 'Sim',
         handler: () => { 
@@ -63,7 +83,10 @@ export class DetalhePage {
               this.functions.mostraToast('Item Deletado!');
               this.navCtrl.setRoot(HomePage);
             } else if (this.item.___class == 'Users') {
-               this.functions.mostraToast('Usuário Deletado!');
+              this.functions.mostraToast('Usuário Deletado!');
+              this.navCtrl.pop();
+            } else if (this.item.___class == 'feedback') {
+              this.functions.mostraToast('Mensagem deletada!');
               this.navCtrl.pop();
             }
           },
@@ -90,8 +113,8 @@ export class DetalhePage {
 
   diminuir() {
     const alert = this.alertCtrl.create({
-      title: 'Quantidade',
-      message: 'Quanto foi retirado?',
+      title: '<div class="card text-white bg-danger mb-3"><div class="card-header">Quantidade</div></div>',
+      message: '<div class="alert alert-dark" role="alert">Quanto foi retirado?</div>',
       inputs: [
         {
           name: 'quantidade',
@@ -102,17 +125,20 @@ export class DetalhePage {
       buttons: [{
         text: 'OK',
         handler: data => {
-          data.quantidade = this.item.quantidade - data.quantidade;
-          this.api.atualizaQuantidade(data.quantidade, this.item.objectId).subscribe(res => {
-            console.log(res);
-            this.item = res;
-            this.functions.mostraToast('Feito!');
-          },
-          Error => {
-            console.log(Error);
-          });
-        }
-      },
+          if ((this.item.quantidade - data.quantidade) < 0 )
+            this.functions.mostraToast('Estoque não pode ser negativo!');
+          else {
+            data.quantidade = this.item.quantidade - data.quantidade;
+            this.api.atualizaQuantidade(data.quantidade, this.item.objectId).subscribe(res => {
+              console.log(res);
+              this.item = res;
+              this.functions.mostraToast('Feito!');
+            },
+            Error => {
+              console.log(Error);
+            });
+          }
+        }},
       {
         text: 'Cancelar'
       }]
