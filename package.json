@@ -1,43 +1,38 @@
 {
-  "name": "simple-crud",
-  "description": "",
-  "homepage": "https://stackblitz.com/edit/simple-crud",
+  "name": "app-padrao",
+  "version": "0.0.1",
+  "author": "Ionic Framework",
+  "homepage": "http://ionicframework.com/",
+  "private": true,
+  "scripts": {
+    "start": "ionic-app-scripts serve",
+    "clean": "ionic-app-scripts clean",
+    "build": "ionic-app-scripts build",
+    "lint": "ionic-app-scripts lint"
+  },
   "dependencies": {
-    "@angular/common": "6.1.0",
-    "@angular/compiler": "6.1.0",
-    "@angular/compiler-cli": "6.1.0",
-    "@angular/core": "6.1.0",
-    "@angular/forms": "6.1.0",
-    "@angular/http": "6.1.0",
-    "@angular/platform-browser": "6.1.0",
-    "@angular/platform-browser-dynamic": "6.1.0",
-    "@ionic-native/core": "3.12.1",
-    "@ionic-native/splash-screen": "3.12.1",
-    "@ionic-native/status-bar": "3.12.1",
+    "@angular/animations": "5.2.11",
+    "@angular/common": "5.2.11",
+    "@angular/compiler": "5.2.11",
+    "@angular/compiler-cli": "5.2.11",
+    "@angular/core": "5.2.11",
+    "@angular/forms": "5.2.11",
+    "@angular/http": "5.2.11",
+    "@angular/platform-browser": "5.2.11",
+    "@angular/platform-browser-dynamic": "5.2.11",
+    "@ionic-native/core": "~4.11.0",
+    "@ionic-native/splash-screen": "~4.11.0",
+    "@ionic-native/status-bar": "~4.11.0",
     "@ionic/storage": "2.1.3",
     "ionic-angular": "3.9.2",
     "ionicons": "3.0.0",
-    "rxjs": "6.2.2",
+    "rxjs": "5.5.11",
     "sw-toolbox": "3.6.0",
-    "zone.js": "0.8.26",
-    "core-js": "2.5.7",
-    "typescript": "3.0.1",
-    "rxjs-compat": "6.2.2"
-  },
-  "version": "0.0.1",
-  "private": true,
-  "scripts": {
-    "clean": "ionic-app-scripts clean",
-    "build": "ionic-app-scripts build",
-    "lint": "ionic-app-scripts lint",
-    "ionic:build": "ionic-app-scripts build",
-    "ionic:serve": "ionic-app-scripts serve"
+    "zone.js": "0.8.26"
   },
   "devDependencies": {
-    "@ionic/app-scripts": "2.1.3",
-    "@ionic/cli-plugin-cordova": "1.6.2",
-    "@ionic/cli-plugin-ionic-angular": "1.4.1",
-    "ionic": "3.7.0",
-    "typescript": "2.3.4"
-  }
+    "@ionic/app-scripts": "3.1.11",
+    "typescript": "~2.6.2"
+  },
+  "description": "An Ionic project"
 }

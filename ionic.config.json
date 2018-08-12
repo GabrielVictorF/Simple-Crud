@@ -1,5 +1,7 @@
 {
-  "name": "simple-crud",
-  "app_id": "",
+  "name": "app-padrao",
+  "integrations": {
+    "cordova": {}
+  },
   "type": "ionic-angular"
 }
