@@ -17,9 +17,16 @@
 		<ion-label stacked>Quantidade</ion-label>
 		<ion-input type="email"	placeholder="Quantidade..." [(ngModel)]="item.quantidade"></ion-input>
 	</ion-item>
-  <ion-item>
+  	<ion-item>
 		<ion-label stacked>Preço</ion-label>
 		<ion-input type="email"	placeholder="Preço..." [(ngModel)]="item.preco"></ion-input>
+	</ion-item>
+	<ion-item>
+		Foto
+		<button ion-button full color="dark" (click)="takePicture()">Adicionar imagem</button>
+	</ion-item>
+	<ion-item>
+		<img src="{{photo}}">
 	</ion-item>
 	<ion-item>
 		<button ion-button full color="primary" (click)="adicionar()">Adicionar item</button>

@@ -15,13 +15,15 @@ import { EmpresasPage } from '../empresas/empresas';
 import { ApiProvider } from '../../providers/api/api';
 import { FunctionsProvider } from '../../providers/functions/functions';
 
+import { Item } from '../../models/item';
+
 
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
 })
 export class HomePage {
-  public data: any = [];
+  public data: Item;
   private nivel: number;
 
   constructor(public navCtrl: NavController, public api: ApiProvider, 

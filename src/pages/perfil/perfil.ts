@@ -9,7 +9,7 @@ import { MessagePage } from '../message/message';
 import { LoginPage } from '../login/login';
 
 @Component({
-  selector: 'page-perfil',
+  selector: 'page-perfil',  
   templateUrl: 'perfil.html'
 })
 

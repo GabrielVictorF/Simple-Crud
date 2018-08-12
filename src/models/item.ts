@@ -6,4 +6,5 @@ export class Item {
   public ownerId: number;
   public updated: number;
   public ___class: string;
+  public preco: number;
 }

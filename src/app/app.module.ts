@@ -4,6 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
 import { HttpClientModule} from '@angular/common/http';
+import { Camera } from '@ionic-native/camera';
 
 //Pages
 import { DetalhePage } from '../pages/detalhe/detalhe';
@@ -71,7 +72,8 @@ import { NivelPipe } from '../pipes/nivel/nivel';
   providers: [
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     ApiProvider,
-    FunctionsProvider
+    FunctionsProvider,
+    Camera
   ]
 })
 export class AppModule {}
