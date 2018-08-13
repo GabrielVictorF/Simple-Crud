@@ -15,15 +15,13 @@ import { EmpresasPage } from '../empresas/empresas';
 import { ApiProvider } from '../../providers/api/api';
 import { FunctionsProvider } from '../../providers/functions/functions';
 
-import { Item } from '../../models/item';
-
 
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
 })
 export class HomePage {
-  public data: Item;
+  public data: any;
   private nivel: number;
 
   constructor(public navCtrl: NavController, public api: ApiProvider, 
@@ -38,7 +36,7 @@ export class HomePage {
       content: 'Obtendo favoritos...'
     });
     load.present();
-    this.api.getProdutos().subscribe(res => {
+    this.api.getProdutos().subscribe(res => { 
       if (refresher)
           refresher.complete();
       load.dismiss();

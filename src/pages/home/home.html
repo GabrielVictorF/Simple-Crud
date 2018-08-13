@@ -20,10 +20,11 @@
   </ion-refresher>
 
   <ion-list>
-    <ion-item *ngFor="let x of data" (click)="detalhe(x)"> 
-      <ion-avatar item-start>
-        <img src="{{x.imagem}}">
-      </ion-avatar> 
+    <ion-item *ngFor="let x of data" (click)="detalhe(x)">
+      <!-- <ion-avatar item-start>
+        <img  *ngIf="!x.imagem == 'produto-img'" src="{{x.imagem}}">
+        <img  *ngIf="x.imagem == 'produto-img'" src="https://develop.backendless.com/FAA68423-49CB-CE65-FF5B-CB0FC0C7B600/console/fdleezxgcunaupxglanthtmxooxkqxsiphja/files/view/produto-img.png">
+      </ion-avatar> -->
       {{x.nome}} 
       <ion-note item-end>{{x.quantidade}}</ion-note>
       </ion-item>

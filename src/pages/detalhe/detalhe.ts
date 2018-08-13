@@ -16,7 +16,7 @@ import { Empresa } from '../../models/empresa';
   templateUrl: 'detalhe.html'
 })
 export class DetalhePage {
-  private item; 
+  private item: Item; 
   private item_empresa: Empresa = new Empresa;
   private nivel: number; //1 - Comum, 2 - Adm, 3 - Owner
   private nome: string; //No lugar do PIPE

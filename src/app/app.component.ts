@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Platform, LoadingController, AlertController } from 'ionic-angular';
 
+import { TabsPage } from '../pages/tabs/tabs';
 import { LoginPage } from '../pages/login/login';
 import { ApiProvider } from '../providers/api/api';
 import { HomePage } from '../pages/home/home';
